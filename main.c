@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
 		float flag = 1 ;
 		int sign_up_done = 0;
 		
+		system("cls");
+		
 		printf("\t\t\t\t***********************HOME SCREEN**********************\n");
 		
 		printf("Type 'root' if you are admin or type 'user' if you are a user or type '0' to end the program: ");
@@ -35,6 +37,8 @@ int main(int argc, char *argv[]) {
 		while(strcmp(option,"user")==0 && flag==1){ //USER SCREEN AND FUNCTIONS------------------------
 			
 			int choice,end_of_login=0;
+			
+			system("cls");
 			
 			printf("\n\n\t\t\t\t***********************USER SCREEN**********************\n"); 
 			
@@ -109,6 +113,8 @@ int terminate(char option[4]){
 //START OF THE FUNCTION 'SING_UP'----------------------------
 void sign_up(){
 	
+	system("cls");
+	
 	printf("\n\n\t\t\t\t***********************SIGN UP PAGE**********************\n");
 	
 	printf("\n---------Give us your Name: ");
@@ -136,6 +142,8 @@ void login_user(){
 		char choice_inside_login;
 	
 		char givenUsername[20],givenPassword[6];
+		
+		system("cls");
 		
 		printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
 		
@@ -169,9 +177,7 @@ void login_user(){
 			
 			if(choice_inside_login == 'a'){
 				calculate_cost();
-				printf("\n------------------Cost Calculation------------------");
-				printf("")
-				
+					
 			}
 				
 		
@@ -183,6 +189,9 @@ void login_user(){
 
 
 void calculate_cost(){
+	
+	system("cls");
+	
 	printf("\n------------------Cost Calculation------------------\n");
 	
 	do{
