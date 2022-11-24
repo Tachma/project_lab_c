@@ -6,11 +6,12 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 int terminate(char option[4]);
 void sign_up();
-int exit_user(int choice);
 void login_user();
+void calculate_cost();
 
 char name[20],surname[20],address[20],username[20],password[6];
-
+int age,engine_cc;
+float final_cost;
 
 int main(int argc, char *argv[]) {
 	char option[4];
@@ -132,22 +133,76 @@ void sign_up(){
 
 void login_user(){
 	
-	char givenUsername[20],givenPassword[6];
+		char choice_inside_login;
 	
-	printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
-
-	printf("\nType your username: ");
-	scanf("%s",givenUsername);
-	printf("Type your password: ");
-	scanf("%s",givenPassword);
-	while(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){
-		printf("Wrong input.Try again\n");
-		printf("\nType your username: ");
-		scanf("%s",givenUsername);
-		printf("Type your password: ");
-		scanf("%s",givenPassword);
-	}
-	printf(" ");
+		char givenUsername[20],givenPassword[6];
+		
+		printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
+		
+		do{
+			
+			printf("\nType your username: ");
+			scanf("%s",givenUsername);
+			printf("Type your password: ");
+			scanf("%s",givenPassword);
+			
+			if(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){
+				printf("Wrong input.Try again\n");
+				continue;
+			}	
+			else{
+				
+				printf("\nLogged in succesfully!");
+				printf("\n\t\t\t\t\t\t------MENU------\n");
+				printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
+				do{
+					scanf(" %c",&choice_inside_login);
+					if(choice_inside_login!= 'a' && choice_inside_login!= 'b' && choice_inside_login!= 'c' && choice_inside_login!= 'd' ){
+						printf("\nWrong input.Try again:");
+						continue;
+					}
+					else{
+						break;
+					}
+				}while(1);
+			}
+			
+			if(choice_inside_login == 'a'){
+				calculate_cost();
+				printf("\n------------------Cost Calculation------------------");
+				printf("")
+				
+			}
+				
+		
+			
+		}while(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0);	
+	
+	
 }
 
-int exit_user(choice)
+
+void calculate_cost(){
+	printf("\n------------------Cost Calculation------------------\n");
+	
+	do{
+	
+		printf("\nGive us your age:");
+		scanf("%d",&age);
+		printf("Give us the Engine CC:");
+		scanf("%d",&engine_cc);
+		
+		if(age<18 || engine_cc <0  ){
+			printf("Wrong input.Try again");
+			continue;
+		}
+		else{
+			break;
+		}
+	
+	}while(1);
+	
+	
+	
+	
+}
