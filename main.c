@@ -8,10 +8,11 @@ int terminate(char option[4]);
 void sign_up();
 void login_user();
 void calculate_cost();
+void payment();
 
 char name[20],surname[20],address[20],username[20],password[6];
-int age,engine_cc;
-float final_cost;
+int age,engine_cc,days;
+float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount;
 
 int main(int argc, char *argv[]) {
 	char option[4];
@@ -138,12 +139,9 @@ void sign_up(){
 
 
 void login_user(){
+	char choice_inside_login, givenUsername[20],givenPassword[6];
+	int flag_a = 0;
 	
-		char choice_inside_login;
-	
-		char givenUsername[20],givenPassword[6];
-		
-		system("cls");
 		
 		printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
 		
@@ -165,19 +163,34 @@ void login_user(){
 				printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
 				do{
 					scanf(" %c",&choice_inside_login);
-					if(choice_inside_login!= 'a' && choice_inside_login!= 'b' && choice_inside_login!= 'c' && choice_inside_login!= 'd' ){
-						printf("\nWrong input.Try again:");
+					if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c'){
+						printf("\nWrong input!Try again:");
 						continue;
 					}
 					else{
+						
+						if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){
+							if(choice_inside_login == 'b' || choice_inside_login == 'c'){
+								printf("\nYou have to Calculate the Cost before payment and receipt.Try again:");
+								continue;
+							}
+						
+						}
 						break;
 					}
+					
 				}while(1);
 			}
 			
-			if(choice_inside_login == 'a'){
-				calculate_cost();
+			if(choice_inside_login == 'a'){	
 					
+					calculate_cost();
+					
+			}
+			else if(choice_inside_login == 'b'){
+				
+				
+				
 			}
 				
 		
@@ -192,25 +205,81 @@ void calculate_cost(){
 	
 	system("cls");
 	
+	float rent_cost=0,ins_cost=0;
+	
 	printf("\n------------------Cost Calculation------------------\n");
 	
 	do{
-	
-		printf("\nGive us your age:");
+		printf("\nHow many days do youy want to rent the vehicle: ");
+		scanf("%d",&days);
+		printf("Give us your age:");
 		scanf("%d",&age);
 		printf("Give us the Engine CC:");
 		scanf("%d",&engine_cc);
 		
-		if(age<18 || engine_cc <0  ){
-			printf("Wrong input.Try again");
+		if(age <18 || engine_cc <0 || days <0 ){
+			printf("Wrong input.Try again.");
+			printf("wrong");
 			continue;
 		}
 		else{
 			break;
 		}
-	
 	}while(1);
 	
+	if(days<6){
+		
+		if(engine_cc < 1601){
+			rent_cost = 11.42*days;
+		}
+		else if(engine_cc < 2001){
+			rent_cost = 13.82*days;
+		}
+		else{
+			rent_cost =16.22 * days; 
+		}
+	}
+	else if(days<11){
+			if (engine_cc < 1601){
+			rent_cost = 10.22*days;
+		}
+		else if(engine_cc < 2001){
+			rent_cost = 12.16*days;
+		}
+		else{
+			rent_cost = 15.10*days; 
+		}
+	}
+	else{
+			if (engine_cc < 1601){
+			rent_cost = 9.15 * days;
+		}
+		else if(engine_cc < 2001){
+			rent_cost = 10.62 * days;
+		}
+		else{
+			rent_cost = 13.80 * days; 
+		}
+	}
+	
+	if(age<23){
+		ins_cost = ins_cost_18_22 * engine_cc;
+	}
+	else if( age <31){
+		ins_cost = ins_cost_23_30 * engine_cc;
+	}
+	else{
+		ins_cost = ins_cost_over30 * engine_cc;
+	}
+	
+	amount = ins_cost + rent_cost;
+	
+
+	
+}
+	
+	
+void payment(){
 	
 	
 	
