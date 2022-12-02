@@ -11,7 +11,7 @@ void calculate_cost();
 void payment();
 
 char name[20],surname[20],address[20],username[20],password[6];
-int age,engine_cc,days;
+int age,engine_cc,days, login_successful = 0;
 float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount;
 
 int main(int argc, char *argv[]) {
@@ -137,80 +137,119 @@ void sign_up(){
 //END OF THE FUNCTION 'SING_UP'------------------------------
 
 
-
+//START OF THE FUNCTION 'LOGIN_USER'---------------------------
 void login_user(){
 	char choice_inside_login, givenUsername[20],givenPassword[6];
-	int flag_a = 0;
+	int flag_a = 0 ;
+	system("cls");
 	
 		
 		printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
 		
 		do{
+			if(login_successful == 0){   //Checking if he has logged in before.
 			
-			printf("\nType your username: ");
-			scanf("%s",givenUsername);
-			printf("Type your password: ");
-			scanf("%s",givenPassword);
-			
-			if(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){
-				printf("Wrong input.Try again\n");
-				continue;
-			}	
-			else{
+				printf("\nType your username: ");
+				scanf("%s",givenUsername);
+				printf("Type your password: ");
+				scanf("%s",givenPassword);
 				
-				printf("\nLogged in succesfully!");
+				if(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){
+					printf("Wrong input.Try again\n");
+					continue;
+				}	
+				else{
+					
+					login_successful = 1;
+					printf("\nLogged in succesfully!");
+					printf("\n\t\t\t\t\t\t------MENU------\n");
+					printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
+					do{
+						printf("What action do you select: ");
+						scanf(" %c",&choice_inside_login);
+						if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c'){
+							printf("\nWrong input!Try again:");
+							continue;
+						}
+						else{
+							
+							if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){
+								printf("flag_a = %d", flag_a);
+								if(choice_inside_login == 'b' || choice_inside_login == 'c'){
+									printf("\nYou have to Calculate the Cost before payment and receipt.Try again:");
+									continue;
+								}
+							
+							}
+							break;
+						}
+						
+					}while(1);
+				}
+				
+			}
+			else{     //If logged in previously does't ask for username and password.
+				
 				printf("\n\t\t\t\t\t\t------MENU------\n");
 				printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
-				do{
-					scanf(" %c",&choice_inside_login);
-					if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c'){
-						printf("\nWrong input!Try again:");
-						continue;
-					}
-					else{
-						
-						if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){
-							if(choice_inside_login == 'b' || choice_inside_login == 'c'){
-								printf("\nYou have to Calculate the Cost before payment and receipt.Try again:");
-								continue;
-							}
-						
+					do{
+						printf("What action do you select: ");
+						scanf(" %c",&choice_inside_login);
+						if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c'){
+							printf("\nWrong input!Try again:");
+							continue;
 						}
-						break;
-					}
-					
-				}while(1);
+						else{
+							
+							if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){
+								printf("flag_a = %d", flag_a);
+								if(choice_inside_login == 'b' || choice_inside_login == 'c'){
+									printf("\nYou have to Calculate the Cost before payment and receipt.Try again:");
+									continue;
+								}
+							
+							}
+							break;
+						}
+						
+					}while(1);
 			}
+		
+		
+			
+			
 			
 			if(choice_inside_login == 'a'){	
-					
+					flag_a = 1;
+					printf("in choice a flag_a = %d", flag_a);
 					calculate_cost();
 					
 			}
 			else if(choice_inside_login == 'b'){
-				
+				payment();
 				
 				
 			}
 				
 		
 			
-		}while(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0);	
-	
-	
+		}while(1);	
+		
+		
 }
+//END OF THE FUNCTION 'LOGIN_USER'---------------------------
 
 
+//START OF THE FUNCTION 'CALCULATE_COST'---------------------------
 void calculate_cost(){
 	
 	system("cls");
-	
 	float rent_cost=0,ins_cost=0;
 	
 	printf("\n------------------Cost Calculation------------------\n");
 	
 	do{
-		printf("\nHow many days do youy want to rent the vehicle: ");
+		printf("\nHow many days do you want to rent the vehicle: ");
 		scanf("%d",&days);
 		printf("Give us your age:");
 		scanf("%d",&age);
@@ -277,10 +316,27 @@ void calculate_cost(){
 
 	
 }
-	
-	
+//END OF THE FUNCTION 'CALCULATE_COST'---------------------------	
+
+
+//START OF THE FUNCTION 'PAYMENT'---------------------------
 void payment(){
+	system("cls");
+	int option;
 	
+	printf("\n------------------Payment------------------\n");
+	printf("Pay with: 1.Card\n\t  2.Cash");
+	printf("\n\nWhat do you select: ");
 	
+	do{
+		scanf("%d",&option);
+		if(option != 1 || option!=2){
+			printf("\nWrong input.Try again: ");
+		}
+		
+	
+	}while (option != 1 && option!=2);
+	printf("\n%d",option);
 	
 }
+//END OF THE FUNCTION 'PAYMENT'---------------------------
