@@ -129,9 +129,20 @@ void sign_up(){
 	
 	printf("---------Give us your Address: ");
 	scanf("%s",address);
+	do{
 	
-	printf("---------Give us your Password: ");
-	scanf("%s",password);
+		printf("---------Give us your Password: ");
+		scanf("%s",password);
+		if(strlen(password) > 6){
+			printf("Password with more than 6 characters!Try again.\n");
+			continue;
+		}
+		else{
+			break;
+		}
+		
+	}while(1);
+	
 
 }
 //END OF THE FUNCTION 'SING_UP'------------------------------
@@ -202,9 +213,9 @@ void login_user(){
 						else{
 							
 							if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){
-								printf("flag_a = %d", flag_a);
+								
 								if(choice_inside_login == 'b' || choice_inside_login == 'c'){
-									printf("\nYou have to Calculate the Cost before payment and receipt.Try again:");
+									printf("\nYou have to Calculate the Cost before payment and receipt.Try again.");
 									continue;
 								}
 							
@@ -330,10 +341,12 @@ void payment(){
 	
 	do{
 		scanf("%d",&option);
-		if(option != 1 || option!=2){
+		if(option != 1 && option!=2){
 			printf("\nWrong input.Try again: ");
 		}
-		
+		else if(option == 1){
+			
+		}
 	
 	}while (option != 1 && option!=2);
 	printf("\n%d",option);
