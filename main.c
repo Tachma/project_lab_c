@@ -5,6 +5,7 @@
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
+//FUNCTIONS-------------------
 int terminate(char option[4]);
 void sign_up();
 void login_user();
@@ -13,10 +14,17 @@ void payment();
 void get_receipt();
 int exit_user(char choice_inside_login);
 int logout(int choice);
+void login_root();
+int exit_root(int choice);
+void change_cost();
+//---------------------------
 
+//VARIABLES------------------
 char name[20],surname[20],address[20],username[20],password[6],credit_card_number[16];
 int age,engine_cc,days, login_successful = 0 , pay_with_credit;
 float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount , total_amount , discount ;
+//---------------------------
+
 
 int main(int argc, char *argv[]) {
 	char option[4];
@@ -25,14 +33,14 @@ int main(int argc, char *argv[]) {
 	do{
 		
 		int sign_up_done = 0;
-		int choice_user;
+		int choice_user,choice_admin;
 		system("cls");
 		
 		printf("\t\t\t\t***********************HOME SCREEN**********************\n");
 		
-		printf("Type 'root' if you are admin or type 'user' if you are a user or type '0' to end the program: ");
+		printf("\nType 'root' if you are admin or type 'user' if you are a user or type '0' to end the program: ");
 		
-		gets(option);    //GETS THE INPUT FROM THE USER
+		scanf("%s",option);    //GETS THE INPUT FROM THE USER
 		while(strcmp(option,"user")!=0 && strcmp(option,"root")!=0 && strcmp(option,"0")!=0){   //CHECKING IF THE INPUT IS CORRECT
 			printf("\nWrong input.Please try again: ");
 			gets(option);
@@ -92,9 +100,36 @@ int main(int argc, char *argv[]) {
 				}
 				
 				
-			}while(logout(choice_user));
-		}
+			}while(logout(choice_user)); //Using the function logout to check if the user want to log out to the main screen.
+			
+		}//End of the USER SCREEN.
 		
+	else if(strcmp(option,"root")==0){ //Start of the ADMIN SCREEN.
+		do{
+			system("cls");
+				
+			printf("\n\n\t\t\t\t***********************ADMIN SCREEN**********************\n");
+			printf("\n\t\t\t\t 1.LOGIN\n\t\t\t\t 2.LOGOUT\n"); //PRINTING THE MENU
+			
+			printf("\n\nSelect one number of the option above:");
+			scanf("%d",&choice_admin);
+				
+			if(choice_admin != 1 && choice_admin != 2){
+				printf("Wrong input.Try again.\n");
+				continue;
+			}
+			if(choice_admin == 1){
+				
+				login_root();
+					
+			}
+			
+		}while(logout(choice_admin));
+		
+		
+	}//End of the ADMIN SCREEN.
+	
+	
 		
 	}while(terminate(option) == 0);  //CALLS THE FUNCTION 'TERMINATE' AND IF IT'S TRUE THEN EXITS THE LOOP AND ENDS PROGRAM
 	
@@ -156,14 +191,15 @@ void login_user(){
 	char choice_inside_login, givenUsername[20],givenPassword[6];
 	int flag_a = 0 ,flag_b = 0;
 	
-	//system("cls");
+	system("cls");
 	
 		
-		printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
+		
 		
 		do{
-			if(login_successful == 0){   //Checking if he has logged in before.
 			
+			if(login_successful == 0){   //Checking if he has logged in before.
+				printf("\n\n\t\t\t\t***********************USER LOGIN PAGE**********************\n");
 				printf("\nType your username: ");
 				scanf("%s",givenUsername);
 				printf("Type your password: ");
@@ -210,7 +246,7 @@ void login_user(){
 				
 			}
 			else{     //If logged in previously does't ask for username and password.
-				
+				printf("\n\n\t\t\t\t***********************LOGIN PAGE**********************\n");
 				printf("\n\t\t\t\t\t\t------MENU------\n");
 				printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
 					do{
@@ -444,7 +480,7 @@ void get_receipt(){
 }
 //END OF THE FUNCTION 'GET_RECEIPT'---------------------------
 
-
+//START OF THE FUNCTION 'EXIT_USER'---------------------------
 int exit_user(char choice_inside_login){
 	int output;
 	
@@ -458,8 +494,9 @@ int exit_user(char choice_inside_login){
 	
 	return output;
 }
+//END OF THE FUNCTION 'EXIT_USER'---------------------------
 
-
+//START OF THE FUNCTION 'LOGOUT'---------------------------
 int logout(int choice){
 	int output;
 	
@@ -472,3 +509,124 @@ int logout(int choice){
 	
 	return output;
 }
+//END OF THE FUNCTION 'LOGOUT'---------------------------
+
+//START OF THE FUNCTION 'LOGIN_ROOT'---------------------------
+void login_root(){
+	
+	char adminUsername[20],adminPassword[20],choice_inside_admin_login;
+	
+	system("cls");
+	
+	printf("\n\n\t\t\t\t***********************ADMIN LOGIN PAGE**********************\n");
+	
+		
+		do{
+			printf("\nType your username: ");
+			scanf("%s",adminUsername);
+			printf("Type your password: ");
+			scanf("%s",adminPassword);
+			
+			if(strcmp(adminUsername,"root")!=0 || strcmp(adminPassword,"Root123")!=0){  //Checking if the username is correct.
+				printf("Wrong input.Try again.\n");
+				continue;
+			}
+			break;
+		}while(1);
+		
+		printf("\nLogged in succesfully!");
+		
+		do{
+		
+			printf("\n\t\t\t\t\t\t------MENU------\n");
+			printf("\n\t\t\t\t a.Change Cost\n\t\t\t\t b.Exit\nn");
+			
+			
+			do{
+				printf("What action do you select: ");
+				scanf(" %c",&choice_inside_admin_login);
+				if (choice_inside_admin_login != 'a' && choice_inside_admin_login != 'b' ){ //Checking if input is correct
+					printf("\nWrong input.Try again.");
+					continue;
+				}
+				break;
+			}while(1);
+			
+			if(choice_inside_admin_login == 'a'){
+				change_cost();
+			}
+		}while(exit_root(choice_inside_admin_login));
+		
+		
+	
+	
+}
+//END OF THE FUNCTION 'LOGIN_ROOT'---------------------------
+
+//START OF THE FUNCTION 'EXIT_ROOT'---------------------------
+int exit_root(int choice){
+	if(choice == 'b'){
+		return 0;
+	}
+	return 1;
+}
+//END OF THE FUNCTION 'EXIT_ROOT'---------------------------
+
+//START OF THE FUNCTION 'CHANGE_COST'---------------------------
+void change_cost(){
+	
+	float new_ins_cost_18_22,new_ins_cost_23_30,new_ins_cost_over30;
+	int choice_of_category;
+	
+	system("cls");
+
+	printf("\n------------------Change Cost------------------\n");
+	printf("What category from 1-3 do you want to change:");
+	do{
+		scanf("%d",&choice_of_category);
+		if(choice_of_category != 1 && choice_of_category != 2 && choice_of_category != 3 ){
+			printf("Wrong input.Try again:");
+			continue;
+		}
+		break;
+	}while(1);
+	
+	printf("Give the new cost: ");
+	if(choice_of_category == 1){
+		
+		do{
+			scanf("%f",&new_ins_cost_18_22);
+			if( (abs( 1 - (new_ins_cost_18_22 / ins_cost_18_22) ) * 100 ) > 0.10  ){
+				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
+				continue;
+			}
+			break;
+		}while(1);
+		
+		ins_cost_18_22 = new_ins_cost_18_22; 
+		
+	}
+	else if(choice_of_category == 2){
+		do{
+			scanf("%f",&new_ins_cost_23_30);
+			if( (abs( 1 - (new_ins_cost_23_30 / ins_cost_23_30) ) * 100 ) > 0.10  ){
+				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
+				continue;
+			}
+			break;
+		}while(1);
+		ins_cost_23_30 = new_ins_cost_23_30;
+	}
+	else{
+		do{
+			scanf("%f",&new_ins_cost_over30);
+			if( (abs( 1 - (new_ins_cost_over30 / ins_cost_over30) ) * 100 ) > 0.10  ){
+				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
+				continue;
+			}
+			break;
+		}while(1);
+		ins_cost_over30 = new_ins_cost_over30;
+	}
+}
+//END OF THE FUNCTION 'CHANGE_COST'---------------------------
