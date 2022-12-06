@@ -10,9 +10,9 @@ void login_user();
 void calculate_cost();
 void payment();
 
-char name[20],surname[20],address[20],username[20],password[6];
-int age,engine_cc,days, login_successful = 0;
-float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount;
+char name[20],surname[20],address[20],username[20],password[6],credit_card_number[16];
+int age,engine_cc,days, login_successful = 0 , pay_with_credit;
+float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount , total_amount , discount ;
 
 int main(int argc, char *argv[]) {
 	char option[4];
@@ -332,8 +332,10 @@ void calculate_cost(){
 
 //START OF THE FUNCTION 'PAYMENT'---------------------------
 void payment(){
+	
 	system("cls");
 	int option;
+	float total_confirm;
 	
 	printf("\n------------------Payment------------------\n");
 	printf("Pay with: 1.Card\n\t  2.Cash");
@@ -344,12 +346,63 @@ void payment(){
 		if(option != 1 && option!=2){
 			printf("\nWrong input.Try again: ");
 		}
-		else if(option == 1){
-			
-		}
+		
 	
 	}while (option != 1 && option!=2);
-	printf("\n%d",option);
+	
+	if (option == 1){
+		discount = amount * 15/100;
+		total_amount = amount - discount;
+		pay_with_credit = 1;
+		do{
+			printf("\nGive the credit card number: ");
+			scanf("%s",credit_card_number);
+			if(strlen(credit_card_number) != 16){
+				printf("\nMore than 16 digits.Try again.");
+				continue;
+			}
+			break;
+		}while(1);
+		
+		printf("Your total amount is: %f",total_amount);
+		
+		do{
+		
+			printf("\nPlease confirm by typing the total amount here:");
+			scanf("%f",&total_confirm);
+			
+			if(total_confirm != total_amount){
+				printf("Wrong input.Try again.");
+				continue;
+			}		
+			break;
+		}while(1);
+		
+	}
+	else {
+		discount = 0;
+		total_amount = amount;
+		pay_with_credit = 0;
+		
+		printf("Your total amount is: %f",total_amount);
+		
+		do{
+		
+			printf("\nPlease confirm by typing the total amount here:");
+			scanf("%f",&total_confirm);
+			
+			if(total_confirm != total_amount){
+				printf("Wrong input.Try again.");
+				continue;
+			}		
+			break;
+		}while(1);
+		
+		
+	}
+	
+	
+	
 	
 }
 //END OF THE FUNCTION 'PAYMENT'---------------------------
