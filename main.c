@@ -489,7 +489,7 @@ void get_receipt(){
 		printf("*   - Pay with Credit Card? \t\tY\t\t\t    *\n*   - Discount (15%%): \t\t %.2f EUR\t\t\t    *\n",discount);
 		printf("*   - TOTAL AMOUNT: \t\t %.2f EUR\t\t\t    *\n",total_amount);
 		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
-		printf("*\t\t\t   CREDIT CARD\t\t\t\t    *\n");s
+		printf("*\t\t\t   CREDIT CARD\t\t\t\t    *\n");
 		printf("*   - Credit card number:\t\t\t\t\t    *\n");
 		printf("*\t     %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c \t\t\t\t    *\n",c_c_number[0],c_c_number[1],c_c_number[2],c_c_number[3],c_c_number[4],c_c_number[5],c_c_number[6],c_c_number[7],c_c_number[8],c_c_number[9],c_c_number[10],c_c_number[11],c_c_number[12],c_c_number[13],c_c_number[14],c_c_number[15]);
 		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
