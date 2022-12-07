@@ -201,49 +201,53 @@ void login_user(){
 			
 			if(login_successful == 0){   //Checking if he has logged in before.
 				printf("\n\n\t\t\t\t***********************USER LOGIN PAGE**********************\n");
-				printf("\nType your username: ");
-				scanf("%s",givenUsername);
-				printf("Type your password: ");
-				scanf("%s",givenPassword);
+				do{
 				
-				if(strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){  //Checking if the username is correct.
-					printf("Wrong input.Try again.\n");
-					continue;
-				}	
-				else{
-					
-					login_successful = 1;  //flag that shows the user has logged in once.
-					printf("\nLogged in succesfully!");
-					printf("\n\t\t\t\t\t\t------MENU------\n");
-					printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
-					do{
-						printf("What action do you select: ");
-						scanf(" %c",&choice_inside_login);
-						if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c' && choice_inside_login != 'd'){
-							printf("\nWrong input!Try again.");
-							continue;
-						}
-						else{
-							
-							if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){    //Checking if user calculated the cost before paying or receiving the receipt.
-								
-								if(choice_inside_login == 'b' || choice_inside_login == 'c'){
-									printf("\nYou have to Calculate the Cost before payment and receipt.Try again.");
-									continue;
-								}
-							
-							}
-							else if(choice_inside_login != 'b' && flag_b == 0 && choice_inside_login != 'd'){    //Checking if user paid before receiving the receipt.
-								if(choice_inside_login == 'c'){
-									printf("You have to pay before receiving the receipt.Try again.");
-									continue;
-								}
-							}
-							break;
-						}
+					printf("\nType your username: ");
+					scanf("%s",givenUsername);
+					printf("Type your password: ");
+					scanf("%s",givenPassword);
+					if (strcmp(givenUsername,username)!=0 || strcmp(givenPassword,password)!=0){
+						printf("Wrong password or username.Try again.\n");
+						continue;
+					}
+					break;
+				}while(1);
+				
+				
+				login_successful = 1;  //flag that shows the user has logged in once.
+				printf("\nLogged in succesfully!");
+				printf("\n\t\t\t\t\t\t------MENU------\n");
+				printf("\n\t\t\t\t a.Calculate Cost\n\t\t\t\t b.Payment\n\t\t\t\t c.Receipt\n\t\t\t\t d.Exit\n\n");
+				
+				do{
+					printf("What action do you select: ");
+					scanf(" %c",&choice_inside_login);
+					if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c' && choice_inside_login != 'd'){
+						printf("\nWrong input!Try again.");
+						continue;
+					}
+					else{
 						
-					}while(1);
-				}
+						if(choice_inside_login != 'a' && flag_a == 0 && choice_inside_login != 'd'){    //Checking if user calculated the cost before paying or receiving the receipt.
+							
+							if(choice_inside_login == 'b' || choice_inside_login == 'c'){
+								printf("\nYou have to Calculate the Cost before payment and receipt.Try again.");
+								continue;
+							}
+						
+						}
+						else if(choice_inside_login != 'b' && flag_b == 0 && choice_inside_login != 'd'){    //Checking if user paid before receiving the receipt.
+							if(choice_inside_login == 'c'){
+								printf("You have to pay before receiving the receipt.Try again.");
+								continue;
+							}
+						}
+						break;
+					}
+						
+				}while(1);
+				
 				
 			}
 			else{     //If logged in previously does't ask for username and password.
@@ -473,9 +477,9 @@ void get_receipt(){
 	system("cls");
 	
 	printf("*********************************************************************\n*\t\t\t   CarRental S.A.\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
-	printf("*   - Days: \t\t\t %d\t(%.2f EUR / day)    *\n",days,amount/days);
-	printf("*   - Driver Age: \t\t %d\t(%f EUR / CC) *\n",age,selected_cost);
-	printf("*   - Engine CC: \t\t %d\t\t\t    *\n",engine_cc);
+	printf("*   - Days: \t\t\t %d\t(%.2f EUR / day)           *\n",days,amount/days);
+	printf("*   - Driver Age: \t\t %d\t(%f EUR / CC)         *\n",age,selected_cost);
+	printf("*   - Engine CC: \t\t %d\t\t\t            *\n",engine_cc);
 	printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
 	printf("*\t\t\t   PAYMENT DETAILS\t\t\t    *\n");
 	printf("*\t\t\t\t\t\t\t\t    *\n");
@@ -485,7 +489,7 @@ void get_receipt(){
 		printf("*   - Pay with Credit Card? \t\tY\t\t\t    *\n*   - Discount (15%%): \t\t %.2f EUR\t\t\t    *\n",discount);
 		printf("*   - TOTAL AMOUNT: \t\t %.2f EUR\t\t\t    *\n",total_amount);
 		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
-		printf("*\t\t\t   CREDIT CARD\t\t\t\t    *\n");
+		printf("*\t\t\t   CREDIT CARD\t\t\t\t    *\n");s
 		printf("*   - Credit card number:\t\t\t\t\t    *\n");
 		printf("*\t     %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c \t\t\t\t    *\n",c_c_number[0],c_c_number[1],c_c_number[2],c_c_number[3],c_c_number[4],c_c_number[5],c_c_number[6],c_c_number[7],c_c_number[8],c_c_number[9],c_c_number[10],c_c_number[11],c_c_number[12],c_c_number[13],c_c_number[14],c_c_number[15]);
 		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
@@ -571,7 +575,7 @@ void login_root(){
 		do{
 		
 			printf("\n\t\t\t\t\t\t------MENU------\n");
-			printf("\n\t\t\t\t a.Change Cost\n\t\t\t\t b.Exit\nn");
+			printf("\n\t\t\t\t a.Change Cost\n\t\t\t\t b.Exit\n");
 			
 			
 			do{
