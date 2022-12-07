@@ -13,22 +13,22 @@ void calculate_cost();
 void payment();
 void get_receipt();
 int exit_user(char choice_inside_login);
-int logout(int choice);
+int logout(int choice,int admin_or_user);
 void login_root();
 int exit_root(int choice);
 void change_cost();
 //---------------------------
 
 //VARIABLES------------------
-char name[20],surname[20],address[20],username[20],password[6],credit_card_number[16];
+char name[20],surname[20],address[20],username[20],password[6],c_c_number[16];
 int age,engine_cc,days, login_successful = 0 , pay_with_credit;
-float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , amount , total_amount , discount ;
+float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00028 , selected_cost, amount , total_amount , discount ;
 //---------------------------
 
 
 int main(int argc, char *argv[]) {
 	char option[4];
-	
+	int admin_or_user;
 	
 	do{
 		
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 		}
 		
 		if(strcmp(option,"user")==0){
-		
+			admin_or_user = 2;
 			do{ //USER SCREEN AND FUNCTIONS------------------------
 				
 				int end_of_login=0;
@@ -100,11 +100,12 @@ int main(int argc, char *argv[]) {
 				}
 				
 				
-			}while(logout(choice_user)); //Using the function logout to check if the user want to log out to the main screen.
+			}while(logout(choice_user,admin_or_user)); //Using the function logout to check if the user want to log out to the main screen.
 			
 		}//End of the USER SCREEN.
 		
 	else if(strcmp(option,"root")==0){ //Start of the ADMIN SCREEN.
+		admin_or_user = 1;
 		do{
 			system("cls");
 				
@@ -124,7 +125,7 @@ int main(int argc, char *argv[]) {
 					
 			}
 			
-		}while(logout(choice_admin));
+		}while(logout(choice_admin,admin_or_user));
 		
 		
 	}//End of the ADMIN SCREEN.
@@ -370,12 +371,15 @@ void calculate_cost(){
 	
 	if(age<23){
 		ins_cost = ins_cost_18_22 * engine_cc;
+		selected_cost = ins_cost_18_22;
 	}
 	else if( age <31){
 		ins_cost = ins_cost_23_30 * engine_cc;
+		selected_cost = ins_cost_23_30;
 	}
 	else{
 		ins_cost = ins_cost_over30 * engine_cc;
+		selected_cost = ins_cost_over30;
 	}
 	
 	amount = ins_cost + rent_cost;
@@ -413,10 +417,10 @@ void payment(){
 		
 		do{
 			printf("\nGive the credit card number: ");
-			scanf("%s",credit_card_number);
+			scanf("%s",c_c_number);
 			
-			len = strlen(credit_card_number);  //Holding how many digit have been given by the user
-			printf("Length : %d",strlen(credit_card_number));
+			len = strlen(c_c_number);  //Holding how many digit have been given by the user
+		
 			if(len != 16){
 				printf("\nWrong input.Try again.");
 				continue;
@@ -469,13 +473,31 @@ void get_receipt(){
 	system("cls");
 	
 	printf("*********************************************************************\n*\t\t\t   CarRental S.A.\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
-	printf("*   - Days: \t\t\t %d\t(%.2f EUR / day)    *\n");
-	printf("*   - Driver Age: \t\t %d\t(%f EUR / CC) *\n");
-	printf("*   - Engine CC: \t\t %d\t\t\t    *\n");
+	printf("*   - Days: \t\t\t %d\t(%.2f EUR / day)    *\n",days,amount/days);
+	printf("*   - Driver Age: \t\t %d\t(%f EUR / CC) *\n",age,selected_cost);
+	printf("*   - Engine CC: \t\t %d\t\t\t    *\n",engine_cc);
 	printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
 	printf("*\t\t\t   PAYMENT DETAILS\t\t\t    *\n");
 	printf("*\t\t\t\t\t\t\t\t    *\n");
-	printf("*   - AMOUNT: \t\t\t %.2f EUR\t\t\t    *\n");
+	printf("*   - AMOUNT: \t\t\t %.2f EUR\t\t\t    *\n",amount);
+	
+	if(pay_with_credit == 1){
+		printf("*   - Pay with Credit Card? \t\tY\t\t\t    *\n*   - Discount (15%%): \t\t %.2f EUR\t\t\t    *\n",discount);
+		printf("*   - TOTAL AMOUNT: \t\t %.2f EUR\t\t\t    *\n",total_amount);
+		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
+		printf("*\t\t\t   CREDIT CARD\t\t\t\t    *\n");
+		printf("*   - Credit card number:\t\t\t\t\t    *\n");
+		printf("*\t     %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c \t\t\t\t    *\n",c_c_number[0],c_c_number[1],c_c_number[2],c_c_number[3],c_c_number[4],c_c_number[5],c_c_number[6],c_c_number[7],c_c_number[8],c_c_number[9],c_c_number[10],c_c_number[11],c_c_number[12],c_c_number[13],c_c_number[14],c_c_number[15]);
+		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
+		printf("*********************************************************************\n");
+	}
+	else{
+		printf("*   - Pay with Credit Card? \t\tN\t\t\t    *\n*   - Discount (0%%): \t\t 0 EUR\t\t\t\t    *\n");
+		printf("*   - TOTAL AMOUNT: \t\t %.2f EUR\t\t\t    *\n",total_amount);
+		printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
+		printf("*********************************************************************\n");
+	}
+	
 	
 }
 //END OF THE FUNCTION 'GET_RECEIPT'---------------------------
@@ -497,16 +519,26 @@ int exit_user(char choice_inside_login){
 //END OF THE FUNCTION 'EXIT_USER'---------------------------
 
 //START OF THE FUNCTION 'LOGOUT'---------------------------
-int logout(int choice){
+int logout(int choice,int admin_or_user){
 	int output;
 	
-	if(choice == 3){
-		output = 0;
+	if (admin_or_user == 2 ){
+	
+		if(choice == 3){
+			output = 0;
+		}
+		else{
+			output = 1;
+		}
 	}
 	else{
-		output = 1;
+		if(choice == 2){
+			output = 0;
+		}
+		else{
+			output = 1;
+		}
 	}
-	
 	return output;
 }
 //END OF THE FUNCTION 'LOGOUT'---------------------------
