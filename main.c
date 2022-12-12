@@ -29,10 +29,11 @@ float ins_cost_18_22 = 0.00052 , ins_cost_23_30=0.00043 , ins_cost_over30 = 0.00
 int main(int argc, char *argv[]) {
 	char option[4];
 	int admin_or_user;
+	int sign_up_done = 0;
 	
 	do{
 		
-		int sign_up_done = 0;
+	
 		int choice_user,choice_admin;
 		system("cls");
 		
@@ -43,7 +44,7 @@ int main(int argc, char *argv[]) {
 		scanf("%s",option);    //GETS THE INPUT FROM THE USER
 		while(strcmp(option,"user")!=0 && strcmp(option,"root")!=0 && strcmp(option,"0")!=0){   //CHECKING IF THE INPUT IS CORRECT
 			printf("\nWrong input.Please try again: ");
-			gets(option);
+			scanf("%s",option);
 		}
 		
 		if(strcmp(option,"user")==0){
@@ -59,11 +60,12 @@ int main(int argc, char *argv[]) {
 				printf("\n\t\t\t\t 1.SIGN UP\n\t\t\t\t 2.LOGIN\n\t\t\t\t 3.LOGOUT\n"); //PRINTING THE MENU
 				
 				printf("\n\nSelect one number of the option above:");
+				
 				scanf("%d",&choice_user);
-			 	
+				
 			 	int ex_choice;
 			 	
-				if(sign_up_done == 0 && choice_user != 1){
+				if(sign_up_done == 0 && choice_user != 1 && choice_user !=3 ){
 					ex_choice = choice_user;
 					choice_user = 4 ; 
 				}
@@ -72,9 +74,7 @@ int main(int argc, char *argv[]) {
 					if(sign_up_done==0 && ex_choice == 2){
 						printf("You have to sign up first!");
 					}
-					else if(sign_up_done == 0 && ex_choice == 3){
-						printf("You have to sign up before leaving");
-					}
+				
 					printf("\nWrong input.Please try again: ");
 					scanf("%d",&choice_user);
 					
