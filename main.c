@@ -59,41 +59,38 @@ int main(int argc, char *argv[]) {
 				
 				printf("\n\t\t\t\t 1.SIGN UP\n\t\t\t\t 2.LOGIN\n\t\t\t\t 3.LOGOUT\n"); //PRINTING THE MENU
 				
-				printf("\n\nSelect one number of the option above:");
 				
-				scanf("%d",&choice_user);
 				
-			 	int ex_choice;
+				while(1){ //CHECK FOR THE INPUT.
+					
+					printf("\n\nSelect one number of the option above:");
+					
+					if(scanf("%d",&choice_user)==1){
+						if(sign_up_done == 0 && choice_user == 2  ){ //CHECKS IF THE HAS SIGNED UP BEFORE.IF NOT AND THE CHOICE IS LOG IN PRINTS AND ERROR MESSAGE.
+							printf("You have to sign up before login.Try again.\n");
+							continue;
+						}
+						else if(choice_user != 1 && choice_user != 2 && choice_user != 3) {  //CHECKS IF THE INPUT IS '1' OR '2' OR '3'.
+							printf("Invalid input.Try again.\n");
+							continue;
+						}
+						break;
+					}
+					printf("Invalid input.Try again.\n");
+					while(getchar() != '\n'); //IF THE INPUT ARE CHARACTERS THE INPUT GETS HERE SO THE PROGRAM DOES NOT BUG.
+				}
 			 	
-				if(sign_up_done == 0 && choice_user != 1 && choice_user !=3 ){
-					ex_choice = choice_user;
-					choice_user = 4 ; 
-				}
-				while(choice_user != 1 && choice_user != 2 && choice_user != 3 ){  //CHECKING IF THE INPUT IS CORRECT
-					
-					if(sign_up_done==0 && ex_choice == 2){
-						printf("You have to sign up first!");
-					}
 				
-					printf("\nWrong input.Please try again: ");
-					scanf("%d",&choice_user);
-					
-					if(sign_up_done == 0 && choice_user != 1){
-					ex_choice = choice_user;
-					choice_user = 4 ; 
-					}
-				}
-				
-				if(choice_user == 1){
-					sign_up(sign_up);
-					sign_up_done = 1;
-					login_successful = 0;
+				if(choice_user == 1){  //THE USER INPUT IS SIGN UP.
+					sign_up(); 
+					sign_up_done = 1; //FLAG THAT SHOWS THAT THE USER HAS SIGNED UP SUCCESFULLY.
+					login_successful = 0; //RESETS THE LOG IN FLAG SO IF THERE IS A NEW USER , HE HAS TO LOG WITH THE NEW CREDITS.
 					continue;
 					
 				}
 				
 				
-				if(choice_user == 2){
+				if(choice_user == 2){ //THE USER INPUT IS LOG IN.
 					
 					login_user();
 					continue;
@@ -112,13 +109,21 @@ int main(int argc, char *argv[]) {
 			printf("\n\n\t\t\t\t***********************ADMIN SCREEN**********************\n");
 			printf("\n\t\t\t\t 1.LOGIN\n\t\t\t\t 2.LOGOUT\n"); //PRINTING THE MENU
 			
-			printf("\n\nSelect one number of the option above:");
-			scanf("%d",&choice_admin);
-				
-			if(choice_admin != 1 && choice_admin != 2){
+			
+			while(1){
+			
+				printf("\n\nSelect one number of the option above:");
+				if(scanf("%d",&choice_admin) == 1 ){
+					if(choice_admin != 1 && choice_admin != 2){
+						printf("Wrong input.Try again.\n");
+						continue;
+					}
+					break;
+				}
 				printf("Wrong input.Try again.\n");
-				continue;
+				while(getchar() != '\n'); //IF THE INPUT ARE CHARACTERS THE INPUT GETS HERE SO THE PROGRAM DOES NOT BUG.
 			}
+		
 			if(choice_admin == 1){
 				
 				login_root();
@@ -141,10 +146,10 @@ int main(int argc, char *argv[]) {
 int terminate(char option[4]){
 	
 	if (strcmp(option,"0") == 0){ 
-		return 1;
+		return 1; //RETURNS 1 SO THE CHECK INSIDE THE LOOP IS FALSE AND IT ENDS THE PROGRAM.
 	}
 	else{
-		return 0;
+		return 0; 
 	}
 }
 //END OF THE FUNCTION 'TERMINATE'----------------------------
@@ -172,7 +177,7 @@ void sign_up(){
 	
 		printf("---------Give us your Password: ");
 		scanf("%s",password);
-		if(strlen(password) > 6){
+		if(strlen(password) > 6){ //CHECK SO THE PASSWORD HAS LENGTH LESS THAN 6 CHARACTERS
 			printf("Password with more than 6 characters!Try again.\n");
 			continue;
 		}
@@ -190,7 +195,7 @@ void sign_up(){
 //START OF THE FUNCTION 'LOGIN_USER'---------------------------
 void login_user(){
 	char choice_inside_login, givenUsername[20],givenPassword[6];
-	int flag_a = 0 ,flag_b = 0;
+	int flag_a = 0 ,flag_b = 0;   //FLAG_A  = COST CALCULATED , FLAG_B = PAYMENT DONE.
 	
 	system("cls");
 	
@@ -223,7 +228,7 @@ void login_user(){
 				do{
 					printf("What action do you select: ");
 					scanf(" %c",&choice_inside_login);
-					if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c' && choice_inside_login != 'd'){
+					if(choice_inside_login != 'a' && choice_inside_login != 'b' &&choice_inside_login != 'c' && choice_inside_login != 'd'){ //CHECK IF THE INPUT IS 'a' OR 'b' OR 'c' OR 'd'.
 						printf("\nWrong input!Try again.");
 						continue;
 					}
@@ -289,12 +294,12 @@ void login_user(){
 			
 			
 			if(choice_inside_login == 'a'){	  // if the user selected 'calculate cost'
-				flag_a = 1;
-				calculate_cost();
+				flag_a = 1; //CHANGES THE FLAG SO IT SHOWS THAT THE COST HAS BEEN CALULATED.
+				calculate_cost(); 
 					
 			}
 			else if(choice_inside_login == 'b'){    // if the user selected 'payment'
-				flag_b = 1;
+				flag_b = 1;	 //CHANGES THE FLAG SO IT SHOWS THAT THE PAYMENT HAS BEEN DONE
 				payment();
 				
 			}
@@ -328,7 +333,7 @@ void calculate_cost(){
 		printf("Give us the Engine CC:");
 		scanf("%d",&engine_cc);
 		
-		if(age <18 || engine_cc <0 || days <0 ){
+		if(age <18 || engine_cc <0 || days <0 ){ //CHECKS FOR THE CORRECT INPUT
 			printf("Wrong input.Try again.");
 			printf("wrong");
 			continue;
@@ -407,7 +412,7 @@ void payment(){
 	
 	do{
 		scanf("%d",&option);
-		if(option != 1 && option!=2){
+		if(option != 1 && option!=2){  //CHECKS IF THE INPUT IS CORRECT
 			printf("\nWrong input.Try again: ");
 		}
 		
@@ -423,7 +428,7 @@ void payment(){
 			printf("\nGive the credit card number: ");
 			scanf("%s",c_c_number);
 			
-			len = strlen(c_c_number);  //Holding how many digit have been given by the user
+			len = strlen(c_c_number);  //Holding how many digits have been given by the user
 		
 			if(len != 16){
 				printf("\nWrong input.Try again.");
@@ -452,7 +457,8 @@ void payment(){
 		total_amount = amount;
 		pay_with_credit = 0;
 		
-		printf("Your total amount is: %f",total_amount);
+	
+		printf("Your total amount is: ",total_amount);
 		
 		do{
 		
