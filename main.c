@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -638,7 +639,7 @@ void change_cost(){
 		
 		do{
 			scanf("%f",&new_ins_cost_18_22);
-			if( (abs( 1 - (new_ins_cost_18_22 / ins_cost_18_22) ) * 100 ) > 0.10  ){
+			if(fabs(new_ins_cost_18_22 - ins_cost_18_22) / ins_cost_18_22 > 0.1){  //Using fabs for float absolute. Math.h library used.
 				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
 				continue;
 			}
@@ -651,7 +652,7 @@ void change_cost(){
 	else if(choice_of_category == 2){
 		do{
 			scanf("%f",&new_ins_cost_23_30);
-			if( (abs( 1 - (new_ins_cost_23_30 / ins_cost_23_30) ) * 100 ) > 0.10  ){
+			if(fabs(new_ins_cost_23_30 - ins_cost_23_30) / ins_cost_23_30 > 0.1){
 				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
 				continue;
 			}
@@ -662,7 +663,7 @@ void change_cost(){
 	else{
 		do{
 			scanf("%f",&new_ins_cost_over30);
-			if( (abs( 1 - (new_ins_cost_over30 / ins_cost_over30) ) * 100 ) > 0.10  ){
+			if( fabs(new_ins_cost_over30 - ins_cost_over30) / ins_cost_over30 > 0.1 ){
 				printf("Wrong input.The diffence is greater than 10%%.Try again: ");
 				continue;
 			}
