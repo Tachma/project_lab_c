@@ -327,14 +327,13 @@ void calculate_cost(){
 	printf("\n------------------Cost Calculation------------------\n");
 	
 	do{
-		printf("\nHow many days do you want to rent the vehicle: ");
-		scanf("%d",&days);
+		
 		printf("Give us your age:");
 		scanf("%d",&age);
 		printf("Give us the Engine CC:");
 		scanf("%d",&engine_cc);
 		
-		if(age <18 || engine_cc <0 || days <0 ){ //CHECKS FOR THE CORRECT INPUT
+		if(age <18 || engine_cc <0 ){ //CHECKS FOR THE CORRECT INPUT
 			printf("Wrong input.Try again.");
 			printf("wrong");
 			continue;
@@ -344,40 +343,18 @@ void calculate_cost(){
 		}
 	}while(1);
 	
-	if(days<6){
-		
-		if(engine_cc < 1601){
-			rent_cost = 11.42*days;
-		}
-		else if(engine_cc < 2001){
-			rent_cost = 13.82*days;
-		}
-		else{
-			rent_cost =16.22 * days; 
-		}
+
+	// AM: E22164 .
+	if (engine_cc < 1601){ 
+		rent_cost = 10.22 * 10;
 	}
-	else if(days<11){
-			if (engine_cc < 1601){
-			rent_cost = 10.22*days;
-		}
-		else if(engine_cc < 2001){
-			rent_cost = 12.16*days;
-		}
-		else{
-			rent_cost = 15.10*days; 
-		}
+	else if(engine_cc < 2001){
+		rent_cost = 12.16 * 10;
 	}
 	else{
-			if (engine_cc < 1601){
-			rent_cost = 9.15 * days;
-		}
-		else if(engine_cc < 2001){
-			rent_cost = 10.62 * days;
-		}
-		else{
-			rent_cost = 13.80 * days; 
-		}
+		rent_cost = 15.10* 10; 
 	}
+
 	
 	if(age<23){
 		ins_cost = ins_cost_18_22 * engine_cc;
@@ -459,7 +436,7 @@ void payment(){
 		pay_with_credit = 0;
 		
 	
-		printf("Your total amount is: ",total_amount);
+		printf("Your total amount is: %f",total_amount);
 		
 		do{
 		
@@ -484,7 +461,7 @@ void get_receipt(){
 	system("cls");
 	
 	printf("*********************************************************************\n*\t\t\t   CarRental S.A.\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
-	printf("*   - Days: \t\t\t %d\t(%.2f EUR / day)           *\n",days,amount/days);
+	printf("*   - Days: \t\t\t 10\t(%.2f EUR / day)           *\n",amount/10);
 	printf("*   - Driver Age: \t\t %d\t(%f EUR / CC)         *\n",age,selected_cost);
 	printf("*   - Engine CC: \t\t %d\t\t\t            *\n",engine_cc);
 	printf("*\t\t\t\t\t\t\t\t    *\n*\t\t\t\t\t\t\t\t    *\n");
