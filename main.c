@@ -626,12 +626,17 @@ void change_cost(){
 	printf("\n------------------Change Cost------------------\n");
 	printf("What category from 1-3 do you want to change:");
 	do{
-		scanf("%d",&choice_of_category);
-		if(choice_of_category != 1 && choice_of_category != 2 && choice_of_category != 3 ){
-			printf("Wrong input.Try again:");
-			continue;
+		if(scanf("%d",&choice_of_category)==1){
+		
+			if(choice_of_category != 1 && choice_of_category != 2 && choice_of_category != 3 ){
+				printf("Wrong input.Try again:");
+				continue;
+			}
+			
+			break;
 		}
-		break;
+		printf("Wrong input try again:");
+		while(getchar() != '\n'); //IF THE INPUT ARE CHARACTERS THE INPUT GETS HERE SO THE PROGRAM DOES NOT BUG.		
 	}while(1);
 	
 	printf("Give the new cost: ");
